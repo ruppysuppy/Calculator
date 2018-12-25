@@ -10,17 +10,31 @@
 #version 0.0.3: Added Functionality of Buttons (C , = , DEL left)
 #Updated on: 25/12/2018 07:05 pm
 
+#version 0.0.4: Added Functionality of C , = and DEL Buttons
+#Updated on: 25/12/2018 07:17 pm
+
+#version 0.0.5: Completed polishing of Basic Calculator
+#Updated on: 25/12/2018 07:31 pm
 
 #Importing Modules
 
 from tkinter import *
-from math import *
+
+#Variables
+
+col = 'gray80' #Used to set the overall background colour
+shouldAdd = True #Used as flag to check when to clear the text field
 
 #Functions
 
 #function for updating the calculator whenever a button is pressed
 
 def updateEntry(character):
+    #getting the global value of shouldAdd
+    global shouldAdd
+    #Checking whether shouldAdd is False, if so clearing the text field
+    if (shouldAdd == False):
+        C()
     #enabling the text entry modification
     entry.config(state = NORMAL)
     #geting the data and modifying it to add the character of the pressed button
@@ -32,9 +46,63 @@ def updateEntry(character):
     #disabling the text entry modification
     entry.config(state = DISABLED)
 
-#Variables
+#function for deleting what was in the text-box
 
-col = 'gray80'
+def C():
+    #getting the global value of shouldAdd
+    global shouldAdd
+    #Changing shouldAdd to True
+    shouldAdd = True
+    #enabling the text entry modification
+    entry.config(state = NORMAL)
+    #deleting what was in the text-box
+    entry.delete('1.0', END)
+    #disabling the text entry modification
+    entry.config(state = DISABLED)
+
+def DEL():
+    #getting the global value of shouldAdd
+    global shouldAdd
+    #Checking whether shouldAdd is False, if so clearing the text field
+    if (shouldAdd == False):
+        C()
+    #enabling the text entry modification
+    entry.config(state = NORMAL)
+    #geting the data and modifying it to delete the last character
+    data = (entry.get("1.0", END)).rstrip('\n')
+    data = data[:-1:]
+    #deleting what was in the text-box
+    entry.delete('1.0', END)
+    #inserting the modified data
+    entry.insert(END, data)
+    #disabling the text entry modification
+    entry.config(state = DISABLED)
+
+def evaluate():
+    #getting the global value of shouldAdd
+    global shouldAdd
+    #Changing shouldAdd to False
+    shouldAdd = False
+    #enabling the text entry modification
+    entry.config(state = NORMAL)
+    #geting the data and modifying it to delete the last character
+    data = (entry.get("1.0", END)).rstrip('\n')
+
+    #evaluating the solution
+    try:
+        solution = str(eval (data))
+    except:
+        solution = 'Syntax Error\n'
+
+    #creating the required data
+    data = data + '\n=' + solution
+
+    #deleting what was in the text-box
+    entry.delete('1.0', END)
+    #inserting the modified data
+    entry.insert(END, data)
+    #disabling the text entry modification
+    entry.config(state = DISABLED)
 
 #Creating The Main Window
 
@@ -117,10 +185,10 @@ button7 = Button(frame7 , text = '7' , font = ('arial' , 15 , 'bold') , command 
 button8 = Button(frame8 , text = '8' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('8'))
 button9 = Button(frame9 , text = '9' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('9'))
 button0 = Button(frame0 , text = '0' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('0'))
-buttonC = Button(frameC , text = 'C' , font = ('arial' , 15 , 'bold'))
-buttonDEL = Button(frameDEL , text = 'DEL' , font = ('arial' , 15 , 'bold'))
+buttonC = Button(frameC , text = 'C' , font = ('arial' , 15 , 'bold') , command = C)
+buttonDEL = Button(frameDEL , text = 'DEL' , font = ('arial' , 15 , 'bold') , command = DEL)
 buttonDot = Button(frameDot , text = '.' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('.'))
-buttonEqual = Button(frameEqual , text = '=' , font = ('arial' , 15 , 'bold'))
+buttonEqual = Button(frameEqual , text = '=' , font = ('arial' , 15 , 'bold') , command = evaluate)
 buttonOpB = Button(frameOpB , text = '(' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('('))
 buttonClB = Button(frameClB , text = ')' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry(')'))
 
