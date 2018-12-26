@@ -16,9 +16,14 @@
 #version 0.0.5: Completed polishing of Basic Calculator
 #Updated on: 25/12/2018 07:31 pm
 
+#version 0.0.6: Completed Scientific Calculator
+#Updated on: 26/12/2018 09:35 am
+
+
 #Importing Modules
 
 from tkinter import *
+from math import *
 
 #Variables
 
@@ -120,7 +125,7 @@ frame_inner.pack(fill = 'both' , expand = True , padx = 2 , pady = 2)
 #Text-field for User input and output
 
 entry = Text(frame_inner , width = 50 , height = 4)
-entry.grid(row = 1 , column = 1 , sticky = N + E + S+ W , columnspan = 4 , padx = 10 , pady = 5)
+entry.grid(row = 1 , column = 1 , sticky = N + E + S+ W , columnspan = 7 , padx = 10 , pady = 5)
 entry.config(state = DISABLED)
 
 #Frames For Each Element
@@ -145,6 +150,19 @@ frameDot = Frame(frame_inner , bg=col)
 frameEqual = Frame(frame_inner , bg=col)
 frameOpB = Frame(frame_inner , bg=col)
 frameClB = Frame(frame_inner , bg=col)
+framesin = Frame(frame_inner , bg=col)
+frameasin = Frame(frame_inner , bg=col)
+framecos = Frame(frame_inner , bg=col)
+frameacos = Frame(frame_inner , bg=col)
+frametan = Frame(frame_inner , bg=col)
+frameatan = Frame(frame_inner , bg=col)
+framepi = Frame(frame_inner , bg=col)
+framee = Frame(frame_inner , bg=col)
+framelog10 = Frame(frame_inner , bg=col)
+framelog = Frame(frame_inner , bg=col)
+framepow = Frame(frame_inner , bg=col)
+framefact = Frame(frame_inner , bg=col)
+framemod = Frame(frame_inner , bg=col)
 
 #Adding Frames (For Clean UI Elements)
 
@@ -161,19 +179,32 @@ frame6.grid(row = 4 , column = 3 , sticky = N+E+S+W , padx = 5 , pady = 5)
 frame7.grid(row = 3 , column = 1 , sticky = N+E+S+W , padx = 5 , pady = 5)
 frame8.grid(row = 3 , column = 2 , sticky = N+E+S+W , padx = 5 , pady = 5)
 frame9.grid(row = 3 , column = 3 , sticky = N+E+S+W , padx = 5 , pady = 5)
-frame0.grid(row = 6 , column = 1 , sticky = N+E+S+W , padx = 5 , pady = 5)
+frame0.grid(row = 6 , column = 1 , sticky = N+E+S+W , padx = 5 , pady = 5 , columnspan = 2)
 frameC.grid(row = 3 , column = 4 , sticky = N+E+S+W , padx = 5 , pady = 5)
 frameDEL.grid(row = 4 , column = 4 , sticky = N+E+S+W , padx = 5 , pady = 5)
-frameDot.grid(row = 6 , column = 2 , sticky = N+E+S+W , padx = 5 , pady = 5)
-frameEqual.grid(row = 5 , column = 4 , sticky = N+E+S+W , padx = 5 , pady = 5)
-frameOpB.grid(row = 6 , column = 3 , sticky = N+E+S+W , padx = 5 , pady = 5)
-frameClB.grid(row = 6 , column = 4 , sticky = N+E+S+W , padx = 5 , pady = 5)
+frameDot.grid(row = 6 , column = 3 , sticky = N+E+S+W , padx = 5 , pady = 5)
+frameEqual.grid(row = 6 , column = 6 , sticky = N+E+S+W , padx = 5 , pady = 5 , columnspan = 2)
+frameOpB.grid(row = 5 , column = 4 , sticky = N+E+S+W , padx = 5 , pady = 5)
+frameClB.grid(row = 5 , column = 5 , sticky = N+E+S+W , padx = 5 , pady = 5)
+framesin.grid(row = 2 , column = 5 , sticky = N+E+S+W , padx = 5 , pady = 5)
+frameasin.grid(row = 2 , column = 6 , sticky = N+E+S+W , padx = 5 , pady = 5)
+framecos.grid(row = 3 , column = 5 , sticky = N+E+S+W , padx = 5 , pady = 5)
+frameacos.grid(row = 3 , column = 6 , sticky = N+E+S+W , padx = 5 , pady = 5)
+frametan.grid(row = 4 , column = 5 , sticky = N+E+S+W , padx = 5 , pady = 5)
+frameatan.grid(row = 4 , column = 6 , sticky = N+E+S+W , padx = 5 , pady = 5)
+framepi.grid(row = 6 , column = 4 , sticky = N+E+S+W , padx = 5 , pady = 5)
+framee.grid(row = 6 , column = 5 , sticky = N+E+S+W , padx = 5 , pady = 5)
+framelog10.grid(row = 5 , column = 6 , sticky = N+E+S+W , padx = 5 , pady = 5)
+framelog.grid(row = 5 , column = 7 , sticky = N+E+S+W , padx = 5 , pady = 5)
+framepow.grid(row = 2 , column = 7 , sticky = N+E+S+W , padx = 5 , pady = 5)
+framefact.grid(row = 3 , column = 7 , sticky = N+E+S+W , padx = 5 , pady = 5)
+framemod.grid(row = 4 , column = 7 , sticky = N+E+S+W , padx = 5 , pady = 5)
 
 #Creating the Buttons
 
 buttonPlus = Button(framePlus , text = '+' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('+'))
 buttonMinus = Button(frameMinus , text = '-' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('-'))
-buttonMultiply = Button(frameMultiply , text = 'X' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('X'))
+buttonMultiply = Button(frameMultiply , text = '*' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('*'))
 buttonDivide = Button(frameDivide , text = '/' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('/'))
 button1 = Button(frame1 , text = '1' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('1'))
 button2 = Button(frame2 , text = '2' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('2'))
@@ -191,6 +222,19 @@ buttonDot = Button(frameDot , text = '.' , font = ('arial' , 15 , 'bold') , comm
 buttonEqual = Button(frameEqual , text = '=' , font = ('arial' , 15 , 'bold') , command = evaluate)
 buttonOpB = Button(frameOpB , text = '(' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('('))
 buttonClB = Button(frameClB , text = ')' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry(')'))
+buttonpi = Button(framepi , text = 'pi' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('pi'))
+buttone = Button(framee , text = 'e' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('e'))
+buttonsin = Button(framesin , text = 'sin' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('sin('))
+buttonasin = Button(frameasin , text = 'asin' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('asin('))
+buttoncos = Button(framecos , text = 'cos' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('cos('))
+buttonacos = Button(frameacos , text = 'acos' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('acos('))
+buttontan = Button(frametan , text = 'tan' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('tan('))
+buttonatan = Button(frameatan , text = 'atan' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('atan('))
+buttonlog10 = Button(framelog10 , text = 'log10' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('log10('))
+buttonlog = Button(framelog , text = 'log' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('log('))
+buttonpow = Button(framepow , text = 'x^y' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('**'))
+buttonfact = Button(framefact , text = 'x!' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('factorial('))
+buttonmod = Button(framemod , text = '|x|' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('abs('))
 
 #Packing The Buttons
 
@@ -214,6 +258,19 @@ buttonDot.pack(padx = 2 , pady = 2 , fill = BOTH)
 buttonEqual.pack(padx = 2 , pady = 2 , fill = BOTH)
 buttonOpB.pack(padx = 2 , pady = 2 , fill = BOTH)
 buttonClB.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttonpi.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttone.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttonsin.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttonasin.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttoncos.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttonacos.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttontan.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttonatan.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttonlog10.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttonlog.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttonpow.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttonfact.pack(padx = 2 , pady = 2 , fill = BOTH)
+buttonmod.pack(padx = 2 , pady = 2 , fill = BOTH)
 
 #Mainloop
                 
