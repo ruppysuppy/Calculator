@@ -19,6 +19,12 @@
 #version 0.0.6: Completed Scientific Calculator
 #Updated on: 26/12/2018 09:35 am
 
+#version 0.0.7: Updated UI and polished it up
+#Updated on: 26/12/2018 09:38 am
+
+#version 0.0.8: Made the Algorith more efficient (using approximation)
+#Updated on: 26/12/2018 09:46 am
+
 
 #Importing Modules
 
@@ -95,7 +101,13 @@ def evaluate():
 
     #evaluating the solution
     try:
-        solution = str(eval (data))
+        solution = eval (data)
+        solint = int(solution)
+        solfloat = solution -solint
+        if (solfloat <= 0.005):
+            solfloat = 0
+        solution = solfloat + solint
+        solution = str(solution)
     except:
         solution = 'Syntax Error\n'
 
@@ -124,7 +136,7 @@ frame_inner.pack(fill = 'both' , expand = True , padx = 2 , pady = 2)
 
 #Text-field for User input and output
 
-entry = Text(frame_inner , width = 50 , height = 4)
+entry = Text(frame_inner , font = ('arial' , 15 , 'bold') , width = 50 , height = 3)
 entry.grid(row = 1 , column = 1 , sticky = N + E + S+ W , columnspan = 7 , padx = 10 , pady = 5)
 entry.config(state = DISABLED)
 
@@ -202,39 +214,39 @@ framemod.grid(row = 4 , column = 7 , sticky = N+E+S+W , padx = 5 , pady = 5)
 
 #Creating the Buttons
 
-buttonPlus = Button(framePlus , text = '+' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('+'))
-buttonMinus = Button(frameMinus , text = '-' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('-'))
-buttonMultiply = Button(frameMultiply , text = '*' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('*'))
-buttonDivide = Button(frameDivide , text = '/' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('/'))
-button1 = Button(frame1 , text = '1' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('1'))
-button2 = Button(frame2 , text = '2' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('2'))
-button3 = Button(frame3 , text = '3' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('3'))
-button4 = Button(frame4 , text = '4' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('4'))
-button5 = Button(frame5 , text = '5' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('5'))
-button6 = Button(frame6 , text = '6' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('6'))
-button7 = Button(frame7 , text = '7' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('7'))
-button8 = Button(frame8 , text = '8' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('8'))
-button9 = Button(frame9 , text = '9' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('9'))
-button0 = Button(frame0 , text = '0' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('0'))
-buttonC = Button(frameC , text = 'C' , font = ('arial' , 15 , 'bold') , command = C)
-buttonDEL = Button(frameDEL , text = 'DEL' , font = ('arial' , 15 , 'bold') , command = DEL)
-buttonDot = Button(frameDot , text = '.' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('.'))
-buttonEqual = Button(frameEqual , text = '=' , font = ('arial' , 15 , 'bold') , command = evaluate)
-buttonOpB = Button(frameOpB , text = '(' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('('))
-buttonClB = Button(frameClB , text = ')' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry(')'))
-buttonpi = Button(framepi , text = 'pi' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('pi'))
-buttone = Button(framee , text = 'e' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('e'))
-buttonsin = Button(framesin , text = 'sin' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('sin('))
-buttonasin = Button(frameasin , text = 'asin' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('asin('))
-buttoncos = Button(framecos , text = 'cos' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('cos('))
-buttonacos = Button(frameacos , text = 'acos' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('acos('))
-buttontan = Button(frametan , text = 'tan' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('tan('))
-buttonatan = Button(frameatan , text = 'atan' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('atan('))
-buttonlog10 = Button(framelog10 , text = 'log10' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('log10('))
-buttonlog = Button(framelog , text = 'log' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('log('))
-buttonpow = Button(framepow , text = 'x^y' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('**'))
-buttonfact = Button(framefact , text = 'x!' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('factorial('))
-buttonmod = Button(framemod , text = '|x|' , font = ('arial' , 15 , 'bold') , command = lambda: updateEntry('abs('))
+buttonPlus = Button(framePlus , text = '+' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('+'))
+buttonMinus = Button(frameMinus , text = '-' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('-'))
+buttonMultiply = Button(frameMultiply , text = '*' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('*'))
+buttonDivide = Button(frameDivide , text = '/' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('/'))
+button1 = Button(frame1 , text = '1' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('1'))
+button2 = Button(frame2 , text = '2' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('2'))
+button3 = Button(frame3 , text = '3' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('3'))
+button4 = Button(frame4 , text = '4' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('4'))
+button5 = Button(frame5 , text = '5' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('5'))
+button6 = Button(frame6 , text = '6' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('6'))
+button7 = Button(frame7 , text = '7' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('7'))
+button8 = Button(frame8 , text = '8' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('8'))
+button9 = Button(frame9 , text = '9' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('9'))
+button0 = Button(frame0 , text = '0' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('0'))
+buttonC = Button(frameC , text = 'C' , font = ('arial' , 13 , 'bold') , command = C)
+buttonDEL = Button(frameDEL , text = 'DEL' , font = ('arial' , 13 , 'bold') , command = DEL)
+buttonDot = Button(frameDot , text = '.' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('.'))
+buttonEqual = Button(frameEqual , text = '=' , font = ('arial' , 13 , 'bold') , command = evaluate)
+buttonOpB = Button(frameOpB , text = '(' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('('))
+buttonClB = Button(frameClB , text = ')' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry(')'))
+buttonpi = Button(framepi , text = 'pi' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('pi'))
+buttone = Button(framee , text = 'e' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('e'))
+buttonsin = Button(framesin , text = 'sin' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('sin('))
+buttonasin = Button(frameasin , text = 'asin' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('asin('))
+buttoncos = Button(framecos , text = 'cos' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('cos('))
+buttonacos = Button(frameacos , text = 'acos' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('acos('))
+buttontan = Button(frametan , text = 'tan' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('tan('))
+buttonatan = Button(frameatan , text = 'atan' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('atan('))
+buttonlog10 = Button(framelog10 , text = 'log10' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('log10('))
+buttonlog = Button(framelog , text = 'log' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('log('))
+buttonpow = Button(framepow , text = 'x^y' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('**'))
+buttonfact = Button(framefact , text = 'x!' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('factorial('))
+buttonmod = Button(framemod , text = '|x|' , font = ('arial' , 13 , 'bold') , command = lambda: updateEntry('abs('))
 
 #Packing The Buttons
 
