@@ -136,7 +136,7 @@ frame_inner.pack(fill = 'both' , expand = True , padx = 2 , pady = 2)
 
 #Text-field for User input and output
 
-entry = Text(frame_inner , font = ('arial' , 15 , 'bold') , width = 50 , height = 3)
+entry = Text(frame_inner , font = ('arial' , 25 , 'bold') , width = 50 , height = 3)
 entry.grid(row = 1 , column = 1 , sticky = N + E + S+ W , columnspan = 7 , padx = 10 , pady = 5)
 entry.config(state = DISABLED)
 
